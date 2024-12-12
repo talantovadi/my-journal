@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: online_store   # Прямо указываем значение
+      POSTGRES_USER: postgres     # Прямо указываем значение
+      POSTGRES_PASSWORD: 123456   # Прямо указываем значение
     ports:
       - "5432:5432"
     volumes:
@@ -19,23 +19,20 @@ services:
     ports:
       - "5000:5000"
     environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: online_store
+      DB_USER: postgres
+      DB_PASSWORD: 123456
       DB_HOST: db
       DB_PORT: 5432
-      SECRET_KEY: ${SECRET_KEY}
-      SECRET_REFRESH_KEY: ${SECRET_REFRESH_KEY}
-      EMAIL_USER: ${EMAIL_USER}
-      EMAIL_PASS: ${EMAIL_PASS}
+      SECRET_KEY: random_secret_key123
+      SECRET_REFRESH_KEY: random_refresh_secret_key123
+      EMAIL_USER: dilbartalantova@gmail.com
+      EMAIL_PASS: gkwy iphe bofh delq
     volumes:
       - ./server:/app
-    command:
-      ["./wait-for-it.sh", "db:5432", "--timeout=30", "--", "npm", "run", "dev"]
+    command: ["./wait-for-it.sh", "db:5432", "--", "npm", "run", "dev"]
     depends_on:
       - db
-    env_file:
-      - ./server/.env
     networks:
       - my_network
 
