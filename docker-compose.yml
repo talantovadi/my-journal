@@ -20,7 +20,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_HOST: db 
+      DB_HOST: db
       DB_PORT: 5432
       SECRET_KEY: ${SECRET_KEY}
       SECRET_REFRESH_KEY: ${SECRET_REFRESH_KEY}
@@ -31,6 +31,8 @@ services:
     command: npm run dev
     depends_on:
       - db
+    env_file:
+      - ./server/.env
 
 volumes:
   db_data:
