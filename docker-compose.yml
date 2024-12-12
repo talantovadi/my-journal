@@ -30,7 +30,8 @@ services:
       EMAIL_PASS: ${EMAIL_PASS}
     volumes:
       - ./server:/app
-    command: ["./wait-for-it.sh", "db:5432", "--", "npm", "run", "dev"]
+    command:
+      ["./wait-for-it.sh", "db:5432", "--timeout=30", "--", "npm", "run", "dev"]
     depends_on:
       - db
     env_file:
@@ -44,5 +45,3 @@ volumes:
 networks:
   my_network:
     driver: bridge
-
-
