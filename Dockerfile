@@ -12,7 +12,7 @@ RUN npm install --build-from-source
 COPY ./server ./ 
 
 # Копируем скрипт wait-for-it.sh и даем права на выполнение
-COPY wait-for-it.sh /app/wait-for-it.sh
+COPY ./server/wait-for-it.sh /app/wait-for-it.sh
 RUN chmod +x /app/wait-for-it.sh
 
 EXPOSE 5000
