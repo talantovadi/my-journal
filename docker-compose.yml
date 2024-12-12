@@ -28,7 +28,7 @@ services:
       EMAIL_PASS: ${EMAIL_PASS}
     volumes:
       - ./server:/app
-    command: npm run dev
+    command: ["./wait-for-it.sh", "db:5432", "--", "npm", "run", "dev"]
     depends_on:
       - db
     env_file:
@@ -36,3 +36,4 @@ services:
 
 volumes:
   db_data:
+
