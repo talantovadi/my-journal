@@ -1,0 +1,5 @@
+# Node.js
+server/node_modules/
+
+# Sequelize migrations
+migrations/
