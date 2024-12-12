@@ -1,12 +1,15 @@
+version: "3.8"
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # Указываем корень проекта как контекст
+      dockerfile: Dockerfile  # Указываем путь до Dockerfile
     ports:
       - "5000:5000"
     volumes:
-      - .:/app
+      - ./server:/app  # Указываем папку server для работы с кодом
     environment:
       NODE_ENV: development
+      PORT: 5000  # Указываем порт, если используется process.env.PORT
     command: npm run dev
+

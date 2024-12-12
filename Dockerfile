@@ -5,13 +5,13 @@ FROM node:16
 WORKDIR /app
 
 # Копируем package.json и package-lock.json для установки зависимостей
-COPY package*.json ./
+COPY ./server/package*.json ./  # Указываем, что package.json находится в папке server
 
 # Устанавливаем зависимости
 RUN npm install
 
 # Копируем все файлы проекта в контейнер
-COPY . .
+COPY ./server .  # Копируем все из папки server
 
 # Указываем порт, который будет использоваться приложением
 EXPOSE 5000
