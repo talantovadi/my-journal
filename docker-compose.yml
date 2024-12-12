@@ -1,13 +1,36 @@
 services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db 
+      DB_PORT: 5432
+      SECRET_KEY: ${SECRET_KEY}
+      SECRET_REFRESH_KEY: ${SECRET_REFRESH_KEY}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
     volumes:
       - ./server:/app
-    environment:
-      NODE_ENV: development
     command: npm run dev
+    depends_on:
+      - db
 
+volumes:
+  db_data:
