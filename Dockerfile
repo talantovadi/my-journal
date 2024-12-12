@@ -1,21 +1,17 @@
-# Используем базовый образ Node.js
 FROM node:16
 
-# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы package.json и package-lock.json из папки server
+# Копируем package.json и package-lock.json
 COPY ./server/package*.json ./
 
-# Устанавливаем зависимости
-RUN npm install
+# Устанавливаем зависимости (пересобираем bcrypt для текущей архитектуры)
+RUN npm install --build-from-source
 
-# Копируем остальные файлы проекта из папки server
-COPY ./server ./
+COPY ./server ./ 
 
-# Указываем порт для запуска приложения
 EXPOSE 5000
 
-# Команда для запуска приложения
 CMD ["npm", "run", "dev"]
+
 
